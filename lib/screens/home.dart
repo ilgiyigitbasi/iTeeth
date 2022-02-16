@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:iteeth/Screens/appointment.dart';
-import 'package:iteeth/Screens/buttons_main.dart';
-import 'package:iteeth/Screens/settings.dart';
+import 'package:iteeth/screens/appointment.dart';
+import 'package:iteeth/screens/buttons_main.dart';
+import 'package:iteeth/screens/settings.dart';
 
 class Home extends StatefulWidget {
 
   const Home({Key? key, required this.userName}) : super(key: key);
-  final String userName;
+  final String? userName;
   @override
   _HomeState createState() => _HomeState();
 }
@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     void initState() {
       super.initState();
       children = [
-        ButtonsMain(displayName: widget.userName,),
+        ButtonsMain(displayName: widget.userName),
         Appointments(),
         Settings(),
         const Text(

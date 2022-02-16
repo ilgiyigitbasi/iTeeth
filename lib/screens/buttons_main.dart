@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iteeth/constants.dart';
 
 class ButtonsMain extends StatelessWidget {
-  final String displayName;
+  final String? displayName;
   const ButtonsMain({Key? key, required this.displayName}) : super(key: key);
 
   @override
@@ -62,9 +62,9 @@ class ButtonsMain extends StatelessWidget {
                         transform: Matrix4.translationValues(0, -size.height*0.06, 0),
                         height: size.height*0.05,
                         width: size.width*0.8,
-                        child: const Text(
-                          'İlgi Yiğitbaşı',
-                          style: TextStyle(
+                        child:  Text(
+                          displayName!,
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       )

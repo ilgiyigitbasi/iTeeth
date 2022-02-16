@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-import 'Screens/login.dart';
-import 'Screens/appointment.dart';
-import 'Screens/diary.dart';
-import 'Screens/home.dart';
-import 'Screens/information_page.dart';
-import 'Screens/timer.dart';
+import 'screens/login.dart';
+import 'screens/appointment.dart';
+import 'screens/diary.dart';
+import 'screens/home.dart';
+import 'screens/information_page.dart';
+import 'screens/timer.dart';
 import 'constants.dart';
 
 class AppRouter {
@@ -18,7 +18,13 @@ class AppRouter {
       case login_view_route:
         return MaterialPageRoute(builder: (context) => const Login());
       case home_view:
-        return MaterialPageRoute(builder: (context) =>  const Home(userName: '',));
+        final args = settings.arguments;
+        return MaterialPageRoute(builder: (BuildContext context) {
+          Home argument = args as Home;
+          return Home(
+            userName: argument.userName,
+          );
+        });
       case appointment_view:
         return MaterialPageRoute(builder: (context) => const Appointments());
       case timer_view:

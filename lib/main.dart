@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:iteeth/Screens/login.dart';
+import 'package:iteeth/screens/login.dart';
 
 import 'app_router.dart';
 import 'constants.dart';

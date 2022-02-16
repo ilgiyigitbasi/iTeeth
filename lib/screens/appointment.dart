@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iteeth/components/custom_dialog_box.dart';
 
@@ -9,6 +10,27 @@ class Appointments extends StatefulWidget {
 }
 
 class _AppointmentsState extends State<Appointments> {
+  dynamic dataAppointment;
+
+  Future<dynamic> getData() async {
+    final dataref = FirebaseFirestore.instance.collection('user').withConverter(
+        fromFirestore: (snapshots, _) =>
+            dataAppointment.fromJson(snapshots.data()!),
+        toFirestore: (data, _) => dataAppointment.toJson());
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    final dataref = FirebaseFirestore.instance.collection('user').withConverter(
+        fromFirestore: (snapshots, _) =>
+            dataAppointment.fromJson(snapshots.data()!),
+        toFirestore: (data, _) => dataAppointment.toJson());
+    print(dataref.snapshots());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,17 +48,19 @@ class _AppointmentsState extends State<Appointments> {
         child: Column(
           children: [
             TextButton(
-                onPressed: () => {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return   CustomDialogBox(
-                              onConfirm : () => {
-                                print('ajshdkajshd')
-                              }
-                            );
-                          })
-                    },
+                onPressed: () =>
+                {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomDialogBox(
+                            onConfirm: () =>
+                            {
+                              print('ajshdkajshd')
+                            }
+                        );
+                      })
+                },
                 child: Row(
                   children: [
                     const Icon(
@@ -49,12 +73,12 @@ class _AppointmentsState extends State<Appointments> {
                             horizontal: 35, vertical: 0),
                         child: const Center(
                             child: Text(
-                          'Yeni Randevu Ekle',
-                          style: TextStyle(
-                              color: Color.fromRGBO(1, 24, 38, 1),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        )))
+                              'Yeni Randevu Ekle',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(1, 24, 38, 1),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            )))
                   ],
                 )),
             const Divider(
@@ -138,7 +162,7 @@ class _AppointmentsState extends State<Appointments> {
                             Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Randevu1',
+                                  'jahsd',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iteeth/components/register_popup.dart';
+import 'package:iteeth/screens/home.dart';
 import 'package:iteeth/services/auth.dart';
 
 
@@ -143,16 +144,15 @@ class _LoginState extends State<Login> {
   }
   Future<void> _signInWithEmailAndPassword() async {
     try {
-      print(email);
-      print(password);
+
       final User user = (await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       ))
           .user!;
 
-      Navigator.of(context).pushNamed(
-          home_view, arguments: user.displayName);
+      Navigator.pushNamed(
+          context,home_view, arguments: Home(userName: user.displayName));
     } catch (e) {
       print(e);
     }
