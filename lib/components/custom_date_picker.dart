@@ -12,7 +12,7 @@ class CustomDatePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        DatePicker.showDatePicker(context,
+        DatePicker.showDateTimePicker(context,
             showTitleActions: true,
             theme: const DatePickerTheme(
               headerColor: Color.fromRGBO(1, 24, 38, 1),

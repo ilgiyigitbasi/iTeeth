@@ -1,13 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iteeth/constants.dart';
+import 'package:iteeth/screens/appointment.dart';
 
-class ButtonsMain extends StatelessWidget {
+class ButtonsMain extends StatefulWidget {
   final String? displayName;
-  const ButtonsMain({Key? key, required this.displayName}) : super(key: key);
+  final String? uid;
+  const ButtonsMain({Key? key, required this.displayName, required this.uid}) : super(key: key);
+
+  @override
+  State<ButtonsMain> createState() => _ButtonsMainState();
+}
+
+class _ButtonsMainState extends State<ButtonsMain> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.uid);
+    print('buttons');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(1, 24, 38, 1),
@@ -63,7 +73,7 @@ class ButtonsMain extends StatelessWidget {
                         height: size.height*0.05,
                         width: size.width*0.8,
                         child:  Text(
-                          displayName!,
+                          widget.displayName!,
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -80,8 +90,8 @@ class ButtonsMain extends StatelessWidget {
                             width: size.height*0.20,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    appointment_view);
+                                Navigator.pushNamed(
+                                    context,appointment_view, arguments: Appointments( uid: widget.uid));
 
                               },
                               style: ElevatedButton.styleFrom(

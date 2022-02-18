@@ -23,10 +23,18 @@ class AppRouter {
           Home argument = args as Home;
           return Home(
             userName: argument.userName,
+            uid: argument.uid
           );
         });
       case appointment_view:
-        return MaterialPageRoute(builder: (context) => const Appointments());
+        final args = settings.arguments;
+        return MaterialPageRoute(builder: (BuildContext context) {
+
+          Appointments argument = args as Appointments;
+          return Appointments(
+              uid: argument.uid
+          );
+        });
       case timer_view:
         return MaterialPageRoute(builder: (context) => const Timer());
       case diary_view:

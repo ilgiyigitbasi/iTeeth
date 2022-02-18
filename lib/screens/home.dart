@@ -1,17 +1,21 @@
+
 import 'package:flutter/material.dart';
 import 'package:iteeth/screens/appointment.dart';
 import 'package:iteeth/screens/buttons_main.dart';
-import 'package:iteeth/screens/settings.dart';
+import 'package:iteeth/screens/settings1.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
 
-  const Home({Key? key, required this.userName}) : super(key: key);
+  const Home({Key? key, required this.userName, required this.uid}) : super(key: key);
   final String? userName;
+  final String? uid;
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+
 
   int _selectedIndex = 0;
   late List<Widget> children;
@@ -21,9 +25,9 @@ class _HomeState extends State<Home> {
     void initState() {
       super.initState();
       children = [
-        ButtonsMain(displayName: widget.userName),
-        Appointments(),
-        Settings(),
+        ButtonsMain(displayName: widget.userName, uid: widget.uid),
+        Appointments(uid: widget.uid),
+        Settings1(),
         const Text(
           'Index 2: School',
           style: optionStyle,
@@ -47,7 +51,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    print(widget.uid);
     return Scaffold(
       extendBodyBehindAppBar:true,
       body: children[_selectedIndex],
