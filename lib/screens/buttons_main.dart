@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iteeth/constants.dart';
 import 'package:iteeth/screens/appointment.dart';
+import 'package:iteeth/screens/timer.dart';
+import 'package:lottie/lottie.dart';
+
+import 'diary.dart';
 
 class ButtonsMain extends StatefulWidget {
   final String? displayName;
@@ -14,10 +18,10 @@ class ButtonsMain extends StatefulWidget {
 
 class _ButtonsMainState extends State<ButtonsMain> {
 
+
   @override
   Widget build(BuildContext context) {
-    print(widget.uid);
-    print('buttons');
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(1, 24, 38, 1),
@@ -31,7 +35,9 @@ class _ButtonsMainState extends State<ButtonsMain> {
                 alignment: Alignment.topRight,
                 child: IconButton(
                   icon: const Icon(Icons.settings),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   color: Colors.white,
                   iconSize: 25,
                 ),
@@ -49,10 +55,12 @@ class _ButtonsMainState extends State<ButtonsMain> {
                 child: Column(
                   children: [
                     Container(
-                      transform: Matrix4.translationValues(0, -size.height*0.06, 0),
-                      child: Image.asset(
-                        'assets/avatar.png',
-                        height: size.height*0.15,
+                      transform: Matrix4.translationValues(0, -size.height*0.07, 0),
+                      child: Lottie.asset(
+                        "assets/36878-clean-tooth.json",
+                        width: size.width*0.3,
+
+
                       ),
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.center,children:  [
@@ -122,8 +130,8 @@ class _ButtonsMainState extends State<ButtonsMain> {
                             width:  size.height*0.20,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    timer_view);
+                                Navigator.pushNamed(
+                                    context,timer_view, arguments: Timer( uid: widget.uid));
 
                               },
                               style: ElevatedButton.styleFrom(
@@ -149,7 +157,7 @@ class _ButtonsMainState extends State<ButtonsMain> {
                                             Image.asset('assets/toothbrush.png', height: size.height*0.09,),
                                             Container(
                                                 margin:
-                                                 EdgeInsets.only(top: size.height*0.01),
+                                                EdgeInsets.only(top: size.height*0.01),
                                                 child:  Text(
                                                   'Fırçalamaya',
                                                   style: TextStyle(color:Color.fromRGBO(1, 24, 38, 1), fontWeight: FontWeight.bold, fontSize: size.height*0.018 ),
@@ -182,8 +190,8 @@ class _ButtonsMainState extends State<ButtonsMain> {
                             width:  size.height*0.20,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    diary_view);
+                                Navigator.pushNamed(
+                                    context,diary_view, arguments: Diary( uid: widget.uid));
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
@@ -202,12 +210,12 @@ class _ButtonsMainState extends State<ButtonsMain> {
                                         Image.asset('assets/dental-record.png', height: size.height*0.09,),
                                         Container(
                                             margin:
-                                                 EdgeInsets.only(top: size.height*0.01),
+                                            EdgeInsets.only(top: size.height*0.01),
                                             child:  Text(
                                               'Fırçalama',
                                               style: TextStyle(color:Color.fromRGBO(1, 24, 38, 1), fontWeight: FontWeight.bold, fontSize: size.height*0.018 ),
                                             )),
-                                         Text(
+                                        Text(
                                           'Günlüğüm',
                                           style: TextStyle(color:Color.fromRGBO(1, 24, 38, 1), fontWeight: FontWeight.bold, fontSize: size.height*0.018 ),
                                         ),
@@ -244,7 +252,7 @@ class _ButtonsMainState extends State<ButtonsMain> {
                                       style: TextStyle(color:Color.fromRGBO(1, 24, 38, 1), fontWeight: FontWeight.bold, fontSize: size.height*0.018 ),
                                     ),
                                   ),
-                                   Text('Bilmem Gerekenler', textAlign: TextAlign.center, style: TextStyle(color:Color.fromRGBO(1, 24, 38, 1), fontWeight: FontWeight.bold, fontSize: size.height*0.018 ),)
+                                  Text('Bilmem Gerekenler', textAlign: TextAlign.center, style: TextStyle(color:Color.fromRGBO(1, 24, 38, 1), fontWeight: FontWeight.bold, fontSize: size.height*0.018 ),)
                                 ],
                               ),
                             ),

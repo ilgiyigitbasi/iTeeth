@@ -63,64 +63,60 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 ),
                 Form(
                     child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: TextFormField(
-                        onChanged: (val) {
-                          setState(() => appointmentName = val);
-                        },
-                        decoration:
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: TextFormField(
+                            onChanged: (val) {
+                              setState(() => appointmentName = val);
+                            },
+                            decoration:
                             const InputDecoration(labelText: 'Randevu Adı'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: CustomDatePicker(
-                        title: const Text('Randevu Tarihi'),
-                        selectedTime: selectedTime1,
-                        onConfirm: (val) {
-                          setState(() {
-                            selectedTime1 = val;
-                            enabled = true;
-                            baslangictarihi =
-                                DateFormat('dd/mm/yyyy').format(DateTime.now());
-                          });
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                          color: const Color.fromRGBO(1, 24, 38, 1),
-                          child: const Text(
-                            "Kaydet",
-                            style: TextStyle(color: Colors.white),
                           ),
-                          onPressed: () => {
-                            _add()
-                          }),
-                    )
-                  ],
-                ))
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: CustomDatePicker(
+                            title: const Text('Randevu Tarihi'),
+                            selectedTime: selectedTime1,
+                            onConfirm: (val) {
+                              setState(() {
+                                selectedTime1 = val;
+                                enabled = true;
+                                baslangictarihi =
+                                    DateFormat('dd/mm/yyyy').format(DateTime.now());
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RaisedButton(
+                              color: const Color.fromRGBO(1, 24, 38, 1),
+                              child: const Text(
+                                "Kaydet",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () => {
+                                _add()
+                              }),
+                        )
+                      ],
+                    ))
               ],
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           left: 20,
           right: 20,
           child: CircleAvatar(
             backgroundColor: Color.fromRGBO(1, 24, 38, 1),
             radius: 45,
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(45)),
-                child: Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                  size: 48,
-                )),
+
+                child: Image.asset('assets/tooth_date.png', height: 55,)),
           ),
         ),
         Container(
@@ -140,11 +136,11 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           {"name": appointmentName, "date": selectedTime1}
         ])
       }).then((res) => {
-            setState(() {
-              loading = false;
-              Navigator.of(context).pop();
-            })
-          });
+        setState(() {
+          loading = false;
+          Navigator.of(context).pop();
+        })
+      });
     } catch (e) {
       setState(() {
         loading = false;

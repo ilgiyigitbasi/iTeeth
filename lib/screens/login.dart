@@ -12,6 +12,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -20,6 +21,26 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
   bool loading = false;
+
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // FirebaseAuth.instance
+    //     .authStateChanges()
+    //     .listen((User? user) {
+    //   if (user == null) {
+    //     print('stay here');
+    //   } else {
+    //     loading=true;
+    //     Navigator.pushNamed(context, home_view,
+    //         arguments: const Home());
+    //   }
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +55,7 @@ class _LoginState extends State<Login> {
               width: size.width,
               height: size.height * 0.6,
               child:
-                  Center(child: Image.asset('assets/logo3.png', height: 200)),
+              Center(child: Image.asset('assets/logo3.png', height: 200)),
             ),
           ),
           Positioned(
@@ -177,7 +198,7 @@ class _LoginState extends State<Login> {
           .user!;
 
       Navigator.pushNamed(context, home_view,
-          arguments: Home(userName: user.displayName, uid: user.uid));
+          arguments: const Home());
       setState(() {
         loading = false;
       });

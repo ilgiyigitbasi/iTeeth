@@ -19,24 +19,38 @@ class _AppointmentsState extends State<Appointments> {
   FirebaseFirestore? _instance;
   List<Appointment> _list = [];
   bool loading = false;
+  bool noData = false;
 
   Future<void> getAppointmentsFromFirestore() async {
     setState(() {
-      loading=true;
+      loading = true;
     });
     _instance = FirebaseFirestore.instance;
     CollectionReference appointments = _instance!.collection('users');
 
     DocumentSnapshot snapshot = await appointments.doc(widget.uid).get();
-    var data = snapshot.data() as Map;
-    var appointmentsData = data['appointments'] as List<dynamic>;
 
-    for (var item in appointmentsData) {
-      _list.add(Appointment(item['name'], item['date']));
+    var data = snapshot.data() as Map;
+    if (data['appointments'] != null) {
+
+      var appointmentsData = data['appointments'] as List<dynamic>;
+
+      for (var item in appointmentsData) {
+        _list.add(Appointment(item['name'], item['date']));
+      }
+      _list.sort((a, b) => b.date.compareTo(a.date));
+      setState(() {
+        _list = _list;
+        loading = false;
+      });
+    } else {
+      setState(() {
+        noData = true;
+        loading = false;
+      });
     }
     setState(() {
-      _list = _list;
-      loading=false;
+      loading= false;
     });
   }
 
@@ -48,18 +62,6 @@ class _AppointmentsState extends State<Appointments> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.uid);
-    print('here');
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Randevularım'),
@@ -70,21 +72,30 @@ class _AppointmentsState extends State<Appointments> {
           onPressed: () => {Navigator.of(context).pop()},
         ),
       ),
-      body: Stack(
-        children: [Padding(
+      body: Stack(children: [
+        Padding(
           padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
           child: Column(children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+            Image.asset(
+              'assets/calendar.png',
+              height: 55,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
             TextButton(
                 onPressed: () => {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomDialogBox(
-                              uid: widget.uid,
-
-                            );
-                          }).then((value) => getAppointmentsFromFirestore())
-                    },
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomDialogBox(
+                          uid: widget.uid,
+                        );
+                      }).then((value) => getAppointmentsFromFirestore())
+                },
                 child: Row(
                   children: [
                     const Icon(
@@ -97,12 +108,12 @@ class _AppointmentsState extends State<Appointments> {
                             horizontal: 35, vertical: 0),
                         child: const Center(
                             child: Text(
-                          'Yeni Randevu Ekle',
-                          style: TextStyle(
-                              color: Color.fromRGBO(1, 24, 38, 1),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        )))
+                              'Yeni Randevu Ekle',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(1, 24, 38, 1),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            )))
                   ],
                 )),
             const Divider(
@@ -111,13 +122,18 @@ class _AppointmentsState extends State<Appointments> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: ListView.separated(
-                  physics: const ScrollPhysics(),
+                child: _list.isEmpty
+                    ? Padding(
+                  padding: EdgeInsets.all(55),
+                  child: Center(child: Text('Randevu Bulunamadı')),
+                )
+                    : ListView.separated(
+                    physics: const ScrollPhysics(),
                     padding: const EdgeInsets.all(8),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
+                    const Divider(),
                     itemCount: _list.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Row(children: [
@@ -131,11 +147,19 @@ class _AppointmentsState extends State<Appointments> {
                             Text('${_list[index].name}'),
                             Row(
                               children: [
-                                Icon(Icons.date_range, size: 12,),
+                                Icon(
+                                  Icons.date_range,
+                                  size: 12,
+                                ),
                                 Text(
                                     '${DateFormat('dd/MM/yyyy').format(_list[index].date.toDate())}'),
-                                SizedBox(width: 10,),
-                                Icon(Icons.access_time, size: 12,),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.access_time,
+                                  size: 12,
+                                ),
                                 Text(
                                     '${DateFormat('HH:mm').format(_list[index].date.toDate())}'),
                               ],
@@ -149,10 +173,9 @@ class _AppointmentsState extends State<Appointments> {
           ]),
         ),
         Container(
-          child: loading ? const Loading(): null,
+          child: loading ? const Loading() : null,
         )
-        ]
-      ),
+      ]),
     );
   }
 }

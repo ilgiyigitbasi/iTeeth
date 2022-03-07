@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^3.1.8
   flutter_spinkit: ^5.1.0
   firebase_messaging: ^11.2.6
+  lottie: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +87,14 @@ flutter:
       - assets/analysis.png
       - assets/dental-care.png
       - assets/dentist_1.png
+      - assets/tooth_date.png
+      - assets/washing.png
+      - assets/toothhappy.png
+      - assets/user.png
+      - assets/mobile-phone.png
+      - assets/36878-clean-tooth.json
+      - assets/toothache.png
+      - assets/toothpaste.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

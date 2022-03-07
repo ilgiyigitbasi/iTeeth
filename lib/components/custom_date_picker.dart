@@ -51,7 +51,7 @@ class CustomDatePicker extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  DateFormat('dd/MM/yyy').format(selectedTime),
+                  DateFormat('dd/MM/yyyy HH:mm').format(selectedTime),
                   style: const TextStyle(
                       fontFamily: 'Helvetica Neue',
                       fontWeight: FontWeight.normal,

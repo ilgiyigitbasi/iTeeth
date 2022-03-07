@@ -55,6 +55,6 @@ class DefaultFirebaseOptions {
     projectId: 'iteeth-520c4',
     storageBucket: 'iteeth-520c4.appspot.com',
     iosClientId: '544755295245-gia1nhk0kup8pnvlf27eo6kdf2q01qae.apps.googleusercontent.com',
-    iosBundleId: 'com.example.iteeth',
+    iosBundleId: 'com.ilgi.iteeth',
   );
 }
