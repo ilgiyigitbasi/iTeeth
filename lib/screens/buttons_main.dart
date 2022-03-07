@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iteeth/constants.dart';
@@ -5,6 +8,8 @@ import 'package:iteeth/screens/appointment.dart';
 import 'package:iteeth/screens/timer.dart';
 import 'package:lottie/lottie.dart';
 
+import '../notifications.dart';
+import '../utilities.dart';
 import 'diary.dart';
 
 class ButtonsMain extends StatefulWidget {
@@ -17,7 +22,50 @@ class ButtonsMain extends StatefulWidget {
 }
 
 class _ButtonsMainState extends State<ButtonsMain> {
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Allow Notifications'),
+            content: Text('Our app would like to send you notifications'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Don\'t Allow',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              TextButton(
+                  onPressed: () => AwesomeNotifications()
+                      .requestPermissionToSendNotifications()
+                      .then((_) => Navigator.pop(context)),
+                  child: Text(
+                    'Allow',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ))
+            ],
+          ),
+        );
+      }
+    });
 
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +83,13 @@ class _ButtonsMainState extends State<ButtonsMain> {
                 alignment: Alignment.topRight,
                 child: IconButton(
                   icon: const Icon(Icons.settings),
-                  onPressed: () {
+                  onPressed: () async {
+                    NotificationWeekAndTime? pickedSchedule =
+                    await pickSchedule(context);
 
+                    if (pickedSchedule != null) {
+                      createWaterReminderNotification(pickedSchedule);
+                    }
                   },
                   color: Colors.white,
                   iconSize: 25,

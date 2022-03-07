@@ -1,4 +1,7 @@
 
+import 'dart:io';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,8 @@ import 'package:iteeth/screens/buttons_main.dart';
 import 'package:iteeth/screens/profile.dart';
 import 'package:iteeth/screens/settings1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../notifications.dart';
 
 
 class Home extends StatefulWidget {
@@ -29,6 +34,30 @@ class _HomeState extends State<Home> {
     var name = FirebaseAuth.instance.currentUser?.displayName;
     var uid = FirebaseAuth.instance.currentUser?.uid;
 
+    AwesomeNotifications().createdStream.listen((notification) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'Diş Fırçalama Hatırlatıcısı Ayarlandı',
+        ),
+      ));
+    });
+
+    AwesomeNotifications().actionStream.listen((notification) {
+      if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+        AwesomeNotifications().getGlobalBadgeCounter().then(
+              (value) =>
+              AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+        );
+      }
+
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (_) => PlantStatsPage(),
+      //   ),
+      //       (route) => route.isFirst,
+      // );
+    });
 
     children = [
       ButtonsMain(displayName: name, uid: uid),
@@ -104,6 +133,7 @@ class _HomeState extends State<Home> {
                   setState(() {
                     _selectedIndex = 1;
                   });
+                  createPlantFoodNotification;
                 },
                 icon: _selectedIndex == 1
                     ? const Icon(
