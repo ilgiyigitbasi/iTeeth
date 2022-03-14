@@ -12,34 +12,30 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
-
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   String email = '';
+  String emailForget = '';
   String password = '';
   bool loading = false;
-
-
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // FirebaseAuth.instance
-    //     .authStateChanges()
-    //     .listen((User? user) {
-    //   if (user == null) {
-    //     print('stay here');
-    //   } else {
-    //     loading=true;
-    //     Navigator.pushNamed(context, home_view,
-    //         arguments: const Home());
-    //   }
-    // });
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('stay here');
+      } else {
+        loading = true;
+        print('login');
+        Navigator.pushNamed(context, home_view);
+        loading = false;
+      }
+    });
   }
 
   @override
@@ -55,7 +51,7 @@ class _LoginState extends State<Login> {
               width: size.width,
               height: size.height * 0.6,
               child:
-              Center(child: Image.asset('assets/logo3.png', height: 200)),
+                  Center(child: Image.asset('assets/logo3.png', height: 200)),
             ),
           ),
           Positioned(
@@ -76,7 +72,7 @@ class _LoginState extends State<Login> {
                       height: size.height * 0.08,
                       width: size.width * 0.8,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
                               onPressed: () {
@@ -88,6 +84,133 @@ class _LoginState extends State<Login> {
                               },
                               child: const Text(
                                 'Hesap Oluştur',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(1, 24, 38, 1),
+                                    fontWeight: FontWeight.bold),
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(45),
+                                        ),
+                                        elevation: 0,
+                                        backgroundColor: Colors.transparent,
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.28,
+                                          padding: const EdgeInsets.only(
+                                              left: 20, top: 40, right: 20, bottom: 20),
+                                          margin: const EdgeInsets.only(top: 45),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(20),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+                                              ]),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+
+                                            children: [
+                                              const Text('Şifre Sıfırla', textAlign: TextAlign.center,),
+                                              TextField(
+                                                  onChanged: (val) {
+                                                    setState(() =>
+                                                        emailForget = val);
+                                                  },
+                                                  style: const TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          1, 24, 38, 1)),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    labelText: 'E-mail',
+                                                    labelStyle: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            1, 24, 38, 1),
+                                                        fontSize: 12),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color:
+                                                              Color.fromRGBO(
+                                                                  1,
+                                                                  24,
+                                                                  38,
+                                                                  0.8)),
+                                                    ),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        1,
+                                                                        24,
+                                                                        38,
+                                                                        0.8))),
+                                                    border:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color:
+                                                              Color.fromRGBO(
+                                                                  1,
+                                                                  24,
+                                                                  38,
+                                                                  1)),
+                                                    ),
+                                                  )),
+                                              Container(
+                                                margin: const EdgeInsets.only(
+                                                    top: 35),
+                                                child: ElevatedButton(
+                                                  style: ElevatedButton
+                                                      .styleFrom(
+                                                    primary:
+                                                        const Color.fromRGBO(
+                                                            1, 24, 38, 1),
+                                                  ),
+                                                  onPressed: () async {
+                                                    await FirebaseAuth
+                                                        .instance
+                                                        .sendPasswordResetEmail(
+                                                            email:
+                                                                emailForget);
+
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  },
+                                                  child: const Padding(
+                                                    padding:
+                                                        EdgeInsets.all(15.0),
+                                                    child: Text(
+                                                      'Şifre Sıfırla',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontFamily:
+                                                              'Poppins',
+                                                          fontSize: 12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: const Text(
+                                'Şifremi Unuttum',
                                 style: TextStyle(
                                     color: Color.fromRGBO(1, 24, 38, 1),
                                     fontWeight: FontWeight.bold),
@@ -197,8 +320,7 @@ class _LoginState extends State<Login> {
       ))
           .user!;
 
-      Navigator.pushNamed(context, home_view,
-          arguments: const Home());
+      Navigator.pushNamed(context, home_view, arguments: const Home());
       setState(() {
         loading = false;
       });

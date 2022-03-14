@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'components/custom_date_picker.dart';
+
 int createUniqueId() {
   return DateTime.now().millisecondsSinceEpoch.remainder(100000);
 }
@@ -15,17 +17,7 @@ class NotificationWeekAndTime {
 }
 
 Future<NotificationWeekAndTime?> pickSchedule(
-  BuildContext context,
-) async {
-  List<String> weekdays = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ];
+    BuildContext context, List listHours) async {
   TimeOfDay? timeOfDay;
   DateTime now = DateTime.now();
   int? selectedDay;
@@ -34,30 +26,21 @@ Future<NotificationWeekAndTime?> pickSchedule(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(
-            'I want to be reminded every:',
-            textAlign: TextAlign.center,
-          ),
-          content: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 3,
-            children: [
-              for (int index = 0; index < weekdays.length; index++)
-                ElevatedButton(
-                  onPressed: () {
-                    selectedDay = index + 1;
-                    Navigator.pop(context);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.teal,
-                    ),
-                  ),
-                  child: Text(weekdays[index]),
+          content: Container(
+            child: ElevatedButton(
+              onPressed: () {
+                selectedDay = 0;
+                Navigator.pop(context);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Color.fromRGBO(1, 24, 38, 1),
                 ),
-            ],
-          ),
-        );
+              ),
+              child: Text('Hatırlatma Saatini seçiniz'),
+            ),
+          ));
+
       });
 
   if (selectedDay != null) {
@@ -71,8 +54,8 @@ Future<NotificationWeekAndTime?> pickSchedule(
         builder: (BuildContext context, Widget? child) {
           return Theme(
             data: ThemeData(
-              colorScheme: ColorScheme.light(
-                primary: Colors.teal,
+              colorScheme: const ColorScheme.light(
+                primary: Color.fromRGBO(1, 24, 38, 1),
               ),
             ),
             child: child!,
@@ -86,5 +69,3 @@ Future<NotificationWeekAndTime?> pickSchedule(
   }
   return null;
 }
-
-

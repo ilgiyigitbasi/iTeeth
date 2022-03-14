@@ -185,22 +185,21 @@ class _DiaryState extends State<Diary> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset('assets/washing.png', height: 115,),
-                            SizedBox(height: 25,),
-                            Text('Arayüz Fırçası', style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text('Kullandığım Fırçalamalar',  style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text(_interfaceCount.toString(), style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
+                            Image.asset('assets/washing.png', height: MediaQuery.of(context).size.height*0.12,),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.04,),
+                            Text('Arayüz Fırçası', style: TextStyle(fontWeight: FontWeight.bold, fontSize: MediaQuery.of(context).size.width*0.03)),
+                            Text('Kullandığım Fırçalamalar', style: TextStyle(fontWeight: FontWeight.bold,  fontSize: MediaQuery.of(context).size.width*0.03)),
+                            Text(_interfaceCount.toString(), style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.1, fontWeight: FontWeight.bold),),
 
                           ],
                         ),
                       )
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.02),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment:  MainAxisAlignment.center,
-
                     children: [
                       Container(
                         height: MediaQuery.of(context).size.height*0.3,
@@ -223,7 +222,7 @@ class _DiaryState extends State<Diary> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset('assets/toothhappy.png', height: 115,),
+                            Image.asset('assets/toothhappy.png', height: MediaQuery.of(context).size.height*0.12,),
                             SizedBox(height: 25,),
 
                             Text('Toplam Fırçalama',  style: TextStyle(fontWeight: FontWeight.bold)),
