@@ -36,7 +36,6 @@ Future<void> createWaterReminderNotification(
         ),
       ],
       schedule: NotificationCalendar(
-        weekday: i,
         hour: notificationSchedule.timeOfDay.hour,
         minute: notificationSchedule.timeOfDay.minute,
         second: 0,

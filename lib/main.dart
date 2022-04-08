@@ -8,24 +8,20 @@ import 'constants.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
+
+
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-  } catch (e) {}
 
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
   AwesomeNotifications().initialize(
-    'resource://drawable/res_notification_app_icon',
+    'resource://drawable/ic_stat_iteeth',
     [
       NotificationChannel(
         channelKey: 'basic_channel',
         channelName: 'Basic Notifications',
         defaultColor: Colors.teal,
         importance: NotificationImportance.High,
-        channelShowBadge: true, channelDescription: '',
+        channelShowBadge: true, channelDescription: 'description',
       ),
       NotificationChannel(
         channelKey: 'scheduled_channel',
@@ -33,7 +29,7 @@ void main() async {
         defaultColor: Colors.teal,
         locked: true,
         importance: NotificationImportance.High,
-        soundSource: 'resource://raw/res_custom_notification', channelDescription: '',
+        channelDescription: 'description',
       ),
     ],
   );

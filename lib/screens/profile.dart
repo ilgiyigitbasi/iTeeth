@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
             ),
             SingleChildScrollView(
               child: SizedBox(
-                height: 150,
+                height: MediaQuery.of(context).size.height*0.15,
                 child: _hourList.isEmpty ?const Text('Hiç bildirim yok'):ListView(
                   children: _hourList.map((element) => ListTile(title: Text(element))).toList(),
                 ),

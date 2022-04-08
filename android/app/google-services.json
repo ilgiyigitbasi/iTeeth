@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "348905133230",
+    "project_id": "i-teeth",
+    "storage_bucket": "i-teeth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348905133230:android:030f1be05254003dce493f",
+        "android_client_info": {
+          "package_name": "com.ilgi.iteeth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348905133230-84llodqdsnuonj2n9bok2ekichtf29tf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXg4r5_dNHJbAPZznKznlmZ6l_qMOJhYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348905133230-84llodqdsnuonj2n9bok2ekichtf29tf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "348905133230-jrlk41snr00ipu8up9h2tkl1k630ea88.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ilgi.iteeth"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
