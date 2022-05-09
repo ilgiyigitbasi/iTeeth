@@ -4,6 +4,7 @@ import 'package:iteeth/components/loading.dart';
 import 'package:iteeth/components/register_popup.dart';
 import 'package:iteeth/screens/home.dart';
 import 'package:iteeth/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 
@@ -21,21 +22,33 @@ class _LoginState extends State<Login> {
   String emailForget = '';
   String password = '';
   bool loading = false;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
-  void initState() {
+  void initState()  {
     // TODO: implement initState
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('stay here');
-      } else {
-        loading = true;
-        print('login');
-        Navigator.pushNamed(context, home_view);
-        loading = false;
-      }
-    });
+
+    // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    //   if (user == null) {
+    //     print('stay here');
+    //   } else {
+    //     loading = true;
+    //     print('login');
+    //     Navigator.pushNamed(context, home_view);
+    //     loading = false;
+    //   }
+    // });
+    func();
+
+  }
+  func() async {
+    final SharedPreferences prefs =await _prefs;
+    if(prefs.getString('uid') != null) {
+      print(prefs.getString('uid'));
+      Navigator.pushNamed(context, home_view);
+      loading = false;
+    }
   }
 
   @override
@@ -319,6 +332,12 @@ class _LoginState extends State<Login> {
         password: password,
       ))
           .user!;
+      final prefs = await SharedPreferences.getInstance();
+
+      if(prefs.getString('uid') == null) {
+        prefs.setString('uid', user.uid);
+        prefs.setString('displayName', user.displayName!);
+      }
 
       Navigator.pushNamed(context, home_view, arguments: const Home());
       setState(() {

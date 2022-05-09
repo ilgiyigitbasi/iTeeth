@@ -18,6 +18,7 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String nameSurname = '';
+  String? errorTxt = '';
   bool loading = false;
 
 
@@ -156,6 +157,7 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height*0.05,
                 ),
+                Container(child: error ?  Text(errorTxt!, style: TextStyle(color: Colors.red), textAlign: TextAlign.center,): null),
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
@@ -173,7 +175,7 @@ class _RegisterState extends State<Register> {
                         style: TextStyle(fontSize: 13),
                       )),
                 ),
-                Container(child: error ? const Text("Girdiğiniz bilgileri kontrol ederek tekrar deneyin!", style: TextStyle(color: Colors.red), textAlign: TextAlign.center,): null),
+
               ],
 
             ),
@@ -224,11 +226,22 @@ class _RegisterState extends State<Register> {
 
         email = user.email ?? '';
       });
-    } catch(e) {
-      setState(() {
-        loading = false;
-        error = true;
-      });
+    } on FirebaseAuthException  catch(e) {
+      print(e.code);
+      if(e.code == "email-already-in-use") {
+        setState(() {
+          loading = false;
+          error = true;
+          errorTxt = "Bu mail adresi ile hesap mevcut!";
+        });
+      } else {
+        setState(() {
+          loading = false;
+          error = true;
+          errorTxt= e.message;
+        });
+      }
+
     }
 
 

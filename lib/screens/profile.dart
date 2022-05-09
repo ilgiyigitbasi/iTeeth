@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iteeth/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../notifications.dart';
 import '../utilities.dart';
@@ -117,7 +118,7 @@ class _ProfileState extends State<Profile> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(onPressed: ()async=> {await FirebaseAuth.instance.signOut().then((value) => print('signed out')), Navigator.pushNamed(context, login_view_route,)},
+                  TextButton(onPressed: ()async=> {await logout().then((value) => print('signed out')), Navigator.pushNamed(context, login_view_route,)},
                     child: Text('Çıkış Yap', style: TextStyle(color: Colors.red),),)
                 ],
               ),
@@ -126,6 +127,13 @@ class _ProfileState extends State<Profile> {
         )
     );
   }
+}
+logout() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('uid');
+  FirebaseAuth.instance.signOut();
+
+
 }
 class Hours {
   final String hour;

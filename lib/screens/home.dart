@@ -8,6 +8,7 @@ import 'package:iteeth/screens/buttons_main.dart';
 import 'package:iteeth/screens/profile.dart';
 import 'package:iteeth/screens/settings1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../notifications.dart';
 

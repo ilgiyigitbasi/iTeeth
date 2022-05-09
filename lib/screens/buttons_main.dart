@@ -99,7 +99,7 @@ class _ButtonsMainState extends State<ButtonsMain> {
                         height: size.height * 0.05,
                         width: size.width * 0.8,
                         child: Text(
-                          widget.displayName!,
+                          widget.displayName.toString(),
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -118,7 +118,7 @@ class _ButtonsMainState extends State<ButtonsMain> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, appointment_view,
-                                    arguments: Appointments(uid: widget.uid));
+                                    arguments: Appointments(uid: widget.uid.toString()));
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
@@ -158,7 +158,7 @@ class _ButtonsMainState extends State<ButtonsMain> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, timer_view,
-                                    arguments: Timer(uid: widget.uid));
+                                    arguments: Timer(uid: widget.uid.toString()));
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
@@ -233,7 +233,7 @@ class _ButtonsMainState extends State<ButtonsMain> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, diary_view,
-                                    arguments: Diary(uid: widget.uid));
+                                    arguments: Diary(uid: widget.uid.toString()));
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
