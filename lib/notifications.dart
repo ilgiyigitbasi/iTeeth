@@ -20,7 +20,6 @@ Future<void> createPlantFoodNotification() async {
 
 Future<void> createWaterReminderNotification(
     NotificationWeekAndTime notificationSchedule) async {
-  for (int i = 1; i <= 7; i++) {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: createUniqueId(),
@@ -43,7 +42,6 @@ Future<void> createWaterReminderNotification(
         repeats: true,
       ),
     );
-  }
 
 
 }

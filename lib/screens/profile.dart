@@ -36,11 +36,9 @@ class _ProfileState extends State<Profile> {
     _list.sort((a, b) => a.hour.compareTo(b.hour));
 
    for(int i = 0 ; i < _list.length; i++) {
-     if(i%7 == 0) {
        _hoursList.add('${_list[i].hour}:${_list[i].minute}' );
-     }
    }
-   print(_hourList);
+   print(_list);
     setState(() {
       _hourList = _hoursList;
     });
